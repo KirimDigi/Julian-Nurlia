@@ -34,7 +34,7 @@ body{font-family:'Poppins',sans-serif;background:#2b0a06}
 .footer-kirimdigi .footer-title{font-size:15px;font-weight:700;letter-spacing:.3px;margin-bottom:6px}
 .footer-kirimdigi .footer-desc{font-size:13px;font-weight:400;opacity:.92;line-height:1.5;margin-bottom:18px}
 .footer-kirimdigi .footer-social{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap}
-.footer-kirimdigi .footer-social a{display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;background:rgba(255,255,255,.14);width:44px;height:44px;border-radius:50%;transition:.2s;border:1px solid rgba(255,255,255,.22)}
+.footer-kirimdigi .footer-social a{display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;background:rgba(255,255,255,.14);width:36px;height:36px;border-radius:50%;transition:.2s;border:1px solid rgba(255,255,255,.22)}
 .footer-kirimdigi .footer-social a:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
 .footer-kirimdigi .footer-social a:active{transform:translateY(0)}
 .footer-kirimdigi .footer-social svg{flex-shrink:0}
