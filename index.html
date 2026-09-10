@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Julian 💕 Nurlia - Akhirnya Kami Menikah</title>
+  <meta name="description" content="Akhirnya kami menikah - Jul + Lia = Love. Kami mengundang Bapak/Ibu/Saudara/i untuk hadir di pernikahan Julian & Nurlia.">
+  <!-- Open Graph / WhatsApp / Facebook -->
+  <meta property="og:title" content="Julian 💕 Nurlia - Akhirnya Kami Menikah">
+  <meta property="og:description" content="Akhirnya kami menikah - Jul + Lia = Love 💕 Hadiri undangan pernikahan Julian & Nurlia">
+  <!-- Gambar utama untuk preview - pakai JPG kompres 122KB agar LANGSUNG muncul di WhatsApp -->
+  <meta property="og:image" content="https://kirimdigi.github.io/Julian-Nurlia/Cover_compressed.jpg">
+  <meta property="og:image:secure_url" content="https://kirimdigi.github.io/Julian-Nurlia/Cover_compressed.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="941">
+  <meta property="og:image:height" content="1672">
+  <meta property="og:image:alt" content="Akhirnya kami menikah - Jul + Lia = Love">
+  <!-- Fallback PNG asli -->
+  <meta property="og:image" content="https://kirimdigi.github.io/Julian-Nurlia/Cover.png">
+  <meta property="og:url" content="https://kirimdigi.github.io/Julian-Nurlia/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Julian & Nurlia Wedding">
+  <!-- Twitter / WhatsApp Large Preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Julian 💕 Nurlia - Akhirnya Kami Menikah">
+  <meta name="twitter:description" content="Akhirnya kami menikah - Jul + Lia = Love 💕 Hadiri undangan pernikahan Julian & Nurlia">
+  <meta name="twitter:image" content="https://kirimdigi.github.io/Julian-Nurlia/Cover_compressed.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+
+<body>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="rizky-febian-feat-mahalini-bermuara-official-lyric-video-4_DTCxNXU0.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="music-control" id="musicControl" onclick="toggleMusic()" title="Musik">
+    <span id="musicIcon">🎵</span>
+  </div>
+
+  <!-- 1 Cover -->
+  <div class="page" id="page1">
+    <img src="Cover.png" alt="Cover - Julian & Nurlia" class="cover-image">
+    <button class="open-btn" onclick="openInvitation()">Buka Undangan </button>
+  </div>
+
+  <!-- 2 Orang Tua -->
+  <div class="page" id="page2">
+    <img src="OrangTua.png" alt="Orang Tua" class="content-image" loading="lazy">
+  </div>
+
+  <!-- 3 Akad & Resepsi -->
+  <div class="page" id="page3">
+    <img src="Akad-Resepsi.png" alt="Akad & Resepsi" class="content-image" loading="lazy">
+  </div>
+
+  <!-- 4 Kalender -->
+  <div class="page" id="page4">
+    <img src="Kalender.png" alt="Kalender" class="content-image" loading="lazy">
+    <!-- Hitungan mundur live — overlay di atas Kalender.png -->
+    <div class="countdown-overlay">
+      <div class="cd-box"><span class="num" id="cdDay">00</span><span class="label">Hari</span></div>
+      <div class="cd-box"><span class="num" id="cdHour">00</span><span class="label">Jam</span></div>
+      <div class="cd-box"><span class="num" id="cdMin">00</span><span class="label">Menit</span></div>
+      <div class="cd-box"><span class="num" id="cdSec">00</span><span class="label">Detik</span></div>
+    </div>
+  </div>
+
+  <!-- 5 Maps -->
+  <div class="page" id="page5">
+    <img src="Maps.png" alt="Maps" class="content-image" loading="lazy">
+    <!-- Hit-area transparan PAS di atas tombol 'Lihat di Google Maps' yang sudah ada di dalam gambar -->
+    <a href="https://maps.app.goo.gl/HFKSckPvM16sx6uC8" target="_blank" rel="noopener noreferrer" class="maps-hit"
+      aria-label="Lihat di Google Maps"></a>
+  </div>
+
+  <!-- 6 Galeri -->
+  <div class="page" id="page6">
+    <img src="Galeri.png" alt="Galeri" class="content-image" loading="lazy">
+  </div>
+
+  <!-- 7 Love Story -->
+  <div class="page" id="page7">
+    <img src="Love-Story.png" alt="Love Story" class="content-image" loading="lazy">
+  </div>
+
+  <!-- 8 RSVP -->
+  <div class="page" id="page8">
+    <img src="Rsvp.png" alt="Rsvp" class="content-image" loading="lazy">
+    <!-- Tombol RSVP via WhatsApp — mengarah ke 081380989932 -->
+    <a href="https://wa.me/6281380989932?text=Halo%20kak%2C%20saya%20ingin%20konfirmasi%20kehadiran%20untuk%20pernikahan%20Julian%20%26%20Nurlia"
+      target="_blank" rel="noopener noreferrer" class="rsvp-hit" aria-label="RSVP via WhatsApp - 081380989932"></a>
+  </div>
+
+  <!-- 9 Thanks -->
+  <div class="page" id="page9">
+    <img src="Thanks.png" alt="Thanks" class="content-image" loading="lazy">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
