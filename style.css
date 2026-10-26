@@ -417,8 +417,8 @@ img {
    COUNTDOWN OVERLAY (HALAMAN 8)
    ========================================================= */
 :root {
-  --cd-top: 79.4%;
-  --cd-width: 83.2%;
+  --cd-top: 79.1%;
+  --cd-width: 80.7%;
 }
 
 .countdown-overlay {
@@ -426,11 +426,11 @@ img {
   left: 50%;
   transform: translateX(-50%);
   width: var(--cd-width);
-  height: 7.2%;
+  height: 8.85%;
   top: var(--cd-top);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  column-gap: 3.5%;
+  column-gap: 3.3%;
   z-index: 5;
   pointer-events: none;
 }
@@ -447,16 +447,16 @@ img {
 }
 
 .cd-box .num {
-  font-size: clamp(15px, 4.3vw, 24px);
+  font-size: clamp(16px, 4.4vw, 24px);
   font-weight: 800;
   color: #9e0f0f;
-  line-height: 1.05;
+  line-height: 1.1;
   letter-spacing: -0.5px;
   font-family: 'Poppins', sans-serif;
 }
 
 .cd-box .label {
-  font-size: clamp(8px, 2.3vw, 12px);
+  font-size: clamp(8.5px, 2.4vw, 12px);
   font-weight: 700;
   color: #333333;
   margin-top: 2px;
