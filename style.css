@@ -1,43 +1,1136 @@
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{overflow:hidden;height:100%}
-html.scrollable,html.scrollable body{overflow:visible;height:auto;scroll-behavior:smooth}
-body{font-family:'Poppins',sans-serif;background:#2b0a06}
-.page{width:100%;max-width:480px;background:#fff;position:relative;margin:0 auto;overflow:hidden}
-.cover-image{width:100%;height:100vh;object-fit:cover;display:block;object-position:center top}
-.content-image{width:100%;height:auto;display:block}
-/* tombol asli sudah ada di dalam Cover.png — ini hanya hit-area transparan yang diposisikan PAS di atasnya */
-.open-btn{position:absolute;bottom:7.2%;left:50%;transform:translateX(-50%);width:62%;max-width:268px;height:52px;background:transparent;color:transparent;border:none;border-radius:28px;cursor:pointer;z-index:10;-webkit-tap-highlight-color:transparent}
-.open-btn:focus{outline:none}
-.open-btn:active{background:rgba(121,12,4,.08)}
-.music-control{position:fixed;bottom:22px;right:22px;background:rgba(255,255,255,.92);border-radius:50%;width:52px;height:52px;display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.22);z-index:999;transition:all .3s;border:2px solid #790c04}
-.music-control:hover{transform:scale(1.08)}
-.music-control span{font-size:22px}
-.music-control.playing{border-color:#790c04}
-/* hitung mundur live — menutupi angka statis di Kalender.png (diukur langsung dari file PNG) */
-:root{--cd-top:29.9%;--cd-width:67.8%;--cd-gap-x:9%;--cd-gap-y:10.9%;--cd-h:98px}
-.countdown-overlay{position:absolute;left:50%;transform:translateX(-50%);width:var(--cd-width);top:var(--cd-top);display:grid;grid-template-columns:1fr 1fr;column-gap:var(--cd-gap-x);row-gap:var(--cd-gap-y);z-index:5}
-.cd-box{background:transparent;border:none;display:flex;flex-direction:column;align-items:center;justify-content:center;height:var(--cd-h);border-radius:0;box-sizing:border-box}
-.cd-box .num{font-size:clamp(26px, 7vw, 32px);font-weight:900;color:#9e0f0f;line-height:1;letter-spacing:-0.5px;font-family:'Poppins',sans-serif}
-.cd-box .label{font-size:clamp(11px, 3.2vw, 13px);font-weight:700;color:#222;margin-top:2px}
-/* Maps — hit-area transparan di atas tombol asli 'Lihat di Google Maps' di dalam Maps.png — diukur dari Maps.png 941x1672 */
-.maps-hit{position:absolute;left:50%;transform:translateX(-50%);top:50.3%;width:64%;max-width:300px;height:6.8%;min-height:44px;background:transparent;border-radius:28px;z-index:6;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.maps-hit:focus{outline:none}
-.maps-hit:active{background:rgba(121,12,4,.08)}
-/* RSVP — hit-area transparan di atas tombol 'RSVP via WhatsApp' di dalam Rsvp.png */
-.rsvp-hit{position:absolute;left:50%;transform:translateX(-50%);top:37.5%;width:68%;max-width:320px;height:8%;min-height:46px;background:transparent;border-radius:28px;z-index:6;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.rsvp-hit:focus{outline:none}
-.rsvp-hit:active{background:rgba(121,12,4,.08)}
-#page1.opened{display:none}
-#page1.opened .open-btn{display:none}
-/* Footer Hubungi Kami - halaman Thanks */
-.footer-kirimdigi{background:#790c04;color:#fff;text-align:center;padding:28px 20px 30px;font-family:'Poppins',sans-serif}
-.footer-kirimdigi .footer-title{font-size:15px;font-weight:700;letter-spacing:.3px;margin-bottom:6px}
-.footer-kirimdigi .footer-desc{font-size:13px;font-weight:400;opacity:.92;line-height:1.5;margin-bottom:18px}
-.footer-kirimdigi .footer-social{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap}
-.footer-kirimdigi .footer-social a{display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;background:rgba(255,255,255,.14);width:36px;height:36px;border-radius:50%;transition:.2s;border:1px solid rgba(255,255,255,.22)}
-.footer-kirimdigi .footer-social a:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
-.footer-kirimdigi .footer-social a:active{transform:translateY(0)}
-.footer-kirimdigi .footer-social svg{flex-shrink:0}
-@media(max-width:480px){
-  .music-control{bottom:16px;right:14px;width:46px;height:46px}
+/* =========================================================
+   RESET & CORE LAYOUT
+   ========================================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  /* Latar belakang romantis hangat dengan nuansa champagne, blush, dan gold */
+  background: 
+    radial-gradient(circle at 12% 18%, rgba(245, 212, 150, 0.45) 0%, transparent 42%),
+    radial-gradient(circle at 88% 82%, rgba(180, 40, 30, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, #fdf9f4 0%, #f7ebe0 55%, #edd8c6 100%);
+  background-attachment: fixed;
+  font-family: 'Poppins', sans-serif;
+  touch-action: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   AMBIENT FLOATING SPARKLES & FALLING ROSE PETALS
+   ========================================================= */
+.ambient-sparkles,
+.ambient-petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-sparkles {
+  z-index: 40;
+}
+
+.ambient-petals {
+  z-index: 41;
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(216, 155, 82, 0.75) 0%, rgba(121, 12, 4, 0.28) 50%, transparent 70%);
+  box-shadow: 0 0 10px rgba(216, 155, 82, 0.5);
+  animation: floatSparkle linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatSparkle {
+  0% {
+    transform: translateY(105vh) scale(0.4) rotate(0deg);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-10vh) scale(1.1) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.petal {
+  position: absolute;
+  top: -40px;
+  border-radius: 150% 0 150% 150%;
+  background: radial-gradient(circle at 35% 35%, rgba(225, 60, 60, 0.85) 0%, rgba(135, 15, 10, 0.9) 75%);
+  box-shadow: 0 2px 8px rgba(121, 12, 4, 0.25);
+  pointer-events: none;
+  opacity: 0.85;
+  animation: fallPetal linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes fallPetal {
+  0% {
+    transform: translateY(-30px) translateX(0) rotate(0deg) rotateY(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  88% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(105vh) translateX(55px) rotate(380deg) rotateY(360deg);
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   HORIZONTAL SLIDE WRAPPER & TRANSITIONS
+   ========================================================= */
+#page-wrapper {
+  display: flex;
+  width: 800%;
+  height: 100vh;
+  background: transparent;
+  /* Transisi slide ke samping ultra-smooth dengan kurva spring alami */
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  touch-action: none;
+  will-change: transform;
+}
+
+/* =========================================================
+   PAGE CONTAINER
+   ========================================================= */
+.page {
+  width: 12.5%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+#page1 {
+  background: transparent;
+}
+
+#page8 {
+  flex-direction: column;
+  overflow: hidden; /* Tanpa scroll vertikal, pas 1 layar */
+  background: transparent;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+#page8 .page-media {
+  flex: 1;
+  min-height: 0;
+  display: inline-block;
+  line-height: 0;
+  max-height: calc(100vh - 66px);
+}
+
+/* =========================================================
+   PAGE MEDIA & CONTENT ENTRANCE ANIMATION
+   ========================================================= */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.page-media {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  max-width: 100%;
+  max-height: 100vh;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px -10px rgba(121, 12, 4, 0.25), 
+              0 6px 20px rgba(0, 0, 0, 0.08),
+              0 0 0 1px rgba(121, 12, 4, 0.08);
+  /* Transisi dinamis & hidup saat masuk halaman (depth & scale effect) */
+  transform: scale(0.95) translateY(8px);
+  opacity: 0.75;
+  filter: blur(0.5px);
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.65s ease,
+              filter 0.65s ease;
+}
+
+.page.active .page-media {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  filter: blur(0);
+}
+
+.cover-image,
+.content-image {
+  max-width: 100%;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+#page8 .content-image {
+  max-height: calc(100vh - 66px);
+}
+
+@media (max-width: 520px) {
+  #page8 {
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .page-media {
+    border-radius: 0;
+    box-shadow: none;
+    width: auto;
+    max-width: 100%;
+  }
+
+  #page8 .page-media {
+    max-height: calc(100vh - 64px);
+    background: #ffffff;
+  }
+
+  #page8 .content-image {
+    max-height: calc(100vh - 64px);
+    width: auto;
+    height: auto;
+  }
+}
+
+@media (min-width: 521px) {
+  #page8 .page-media {
+    border-radius: 18px 18px 0 0;
+    max-width: 480px;
+    box-shadow: 0 10px 40px -10px rgba(121, 12, 4, 0.25);
+  }
+  
+  .footer-kirimdigi {
+    max-width: 480px;
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 20px 50px -10px rgba(121, 12, 4, 0.25);
+  }
+}
+
+/* =========================================================
+   TOMBOL BUKA UNDANGAN (HIT-AREA PAS DI ATAS TOMBOL GAMBAR)
+   ========================================================= */
+.open-btn {
+  position: absolute;
+  top: 85.6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44%;
+  max-width: 280px;
+  height: 5.8%;
+  min-height: 44px;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+  color: transparent;
+  overflow: hidden;
+  box-shadow: none;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease;
+}
+
+.open-btn:hover {
+  transform: translateX(-50%) scale(1.03);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.open-btn:active {
+  transform: translateX(-50%) scale(0.97);
+  background: rgba(121, 12, 4, 0.15);
+}
+
+.open-btn:focus {
+  outline: none;
+}
+
+/* =========================================================
+   MUSIC CONTROL (PULSING SOUND & VINYL ROTATION)
+   ========================================================= */
+.music-control {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  border: 2px solid #790c04;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.5);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), bottom 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.music-control.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* Naikkan posisi icon musik saat berada di Halaman 8 (Terima Kasih) agar tidak menutupi tulisan footer */
+.music-control.on-footer {
+  bottom: 84px;
+}
+
+.music-control:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 24px rgba(121, 12, 4, 0.4);
+}
+
+.music-control span {
+  font-size: 22px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.music-control.playing {
+  border-color: #790c04;
+  animation: musicPulse 2s infinite;
+}
+
+.music-control.playing span {
+  animation: musicSpin 5s infinite linear;
+}
+
+@keyframes musicPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(121, 12, 4, 0.6), 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(121, 12, 4, 0), 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(121, 12, 4, 0), 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@keyframes musicSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+/* =========================================================
+   NAVIGATION BUTTONS (< & > DENGAN BOUNCE & GLOW)
+   ========================================================= */
+.nav-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  background: rgba(121, 12, 4, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 26px;
+  line-height: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 990;
+  box-shadow: 0 4px 18px rgba(121, 12, 4, 0.35);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-btn:hover {
+  background: #9e0f0f;
+  color: #fff;
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 8px 24px rgba(121, 12, 4, 0.5);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.nav-prev {
+  left: 16px;
+  animation: floatPrev 2.5s infinite ease-in-out;
+}
+
+.nav-next {
+  right: 16px;
+  animation: floatNext 2.5s infinite ease-in-out;
+}
+
+@keyframes floatPrev {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(-4px); }
+}
+
+@keyframes floatNext {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(4px); }
+}
+
+/* =========================================================
+   COUNTDOWN OVERLAY (HALAMAN 8)
+   ========================================================= */
+:root {
+  --cd-top: 80.1%;
+  --cd-width: 80%;
+}
+
+.countdown-overlay {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--cd-width);
+  height: 8%;
+  top: var(--cd-top);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  z-index: 5;
+}
+
+.cd-box {
+  background: #fff;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-radius: 0;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.cd-box .num {
+  font-size: clamp(18px, 5vw, 24px);
+  font-weight: 900;
+  color: #9e0f0f;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  font-family: 'Poppins', sans-serif;
+  transition: transform 0.2s ease;
+}
+
+.cd-box .label {
+  font-size: clamp(10px, 2.7vw, 12px);
+  font-weight: 700;
+  color: #222;
+  margin-top: 2px;
+}
+
+/* =========================================================
+   MAPS & RSVP HIT AREAS
+   ========================================================= */
+.maps-hit {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 66.8%;
+  width: 52%;
+  max-width: 280px;
+  height: 6.2%;
+  min-height: 42px;
+  background: transparent;
+  border-radius: 28px;
+  z-index: 6;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.maps-hit:focus { outline: none; }
+.maps-hit:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.4);
+}
+.maps-hit:active { background: rgba(121, 12, 4, 0.15); }
+
+
+/* =========================================================
+   FORM INTERAKTIF RSVP & UCAPAN (HALAMAN 7)
+   ========================================================= */
+.rsvp-form {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+}
+
+.rsvp-input {
+  position: absolute;
+  pointer-events: auto;
+  left: 21.33%;
+  width: 57.22%;
+  background: #ffffff;
+  border: 1.2px solid rgba(212, 196, 196, 0.9);
+  border-radius: 9px;
+  color: #333333;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(10px, 1.35vh, 12px);
+  padding: 0 12px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.04);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.rsvp-input::placeholder {
+  color: #888888;
+}
+
+.rsvp-input:focus {
+  border-color: #9a1c27;
+  box-shadow: 0 0 0 2px rgba(154, 28, 39, 0.16);
+}
+
+.rsvp-input-nama {
+  top: 20.69%;
+  height: 3.25%;
+  line-height: 1;
+}
+
+.rsvp-input-ucapan {
+  top: 25.0%;
+  height: 4.38%;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  resize: none;
+  line-height: 1.35;
+}
+
+.rsvp-select-kehadiran {
+  top: 30.44%;
+  height: 3.2%;
+  line-height: 1;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 13px;
+  padding-right: 28px;
+}
+
+.rsvp-btn {
+  position: absolute;
+  pointer-events: auto;
+  left: 21.44%;
+  background: #9a1c27;
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(9px, 1.25vh, 11px);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(154, 28, 39, 0.3);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.rsvp-btn:hover {
+  background: #7a121d;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(154, 28, 39, 0.4);
+}
+
+.rsvp-btn:active {
+  transform: translateY(0);
+}
+
+.rsvp-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.rsvp-btn-kirim {
+  top: 35.0%;
+  width: 20.2%;
+  height: 2.5%;
+}
+
+.rsvp-btn-lihat {
+  top: 38.44%;
+  width: 31.0%;
+  height: 2.7%;
+}
+
+/* =========================================================
+   MODAL UCAPAN & DOA (POPUP LIST UCAPAN)
+   ========================================================= */
+.ucapan-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 4, 5, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ucapan-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ucapan-modal-content {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  border: 1px solid rgba(121, 12, 4, 0.15);
+  transform: scale(0.92);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ucapan-modal-overlay.open .ucapan-modal-content {
+  transform: scale(1);
+}
+
+.ucapan-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #790c04, #9a1c27);
+  color: #ffffff;
+}
+
+.ucapan-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ucapan-modal-title .icon {
+  font-size: 20px;
+}
+
+.ucapan-modal-title h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+}
+
+.btn-close-modal {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.btn-close-modal:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Rekap Jumlah Hadir & Tidak Hadir */
+.ucapan-stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 18px;
+  background: #fbf5f2;
+  border-bottom: 1px solid #ebdcd5;
+}
+
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.stat-pill.stat-hadir {
+  background: #e8f5e9;
+  color: #1b5e20;
+  border: 1px solid rgba(46, 125, 50, 0.28);
+}
+
+.stat-pill.stat-tidak-hadir {
+  background: #ffebee;
+  color: #b71c1c;
+  border: 1px solid rgba(198, 40, 40, 0.28);
+}
+
+.stat-pill .stat-icon {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.stat-pill .stat-count {
+  font-weight: 700;
+  font-size: 12px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.ucapan-list-container {
+  padding: 16px 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 60vh;
+}
+
+.ucapan-card {
+  background: #fdfaf8;
+  border: 1px solid #f0e6e0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.ucapan-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.ucapan-sender-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #790c04;
+}
+
+.badge-hadir {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+.badge-tidak-hadir {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid rgba(198, 40, 40, 0.25);
+}
+
+.ucapan-message {
+  font-size: 12px;
+  color: #444;
+  line-height: 1.45;
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.ucapan-time {
+  font-size: 10px;
+  color: #999;
+}
+
+.ucapan-empty-state {
+  text-align: center;
+  padding: 32px 16px;
+  color: #888;
+  font-size: 13px;
+}
+
+/* =========================================================
+   TOMBOL SALIN NO. REKENING (HALAMAN 7 - TRANSFER CASHLESS)
+   ========================================================= */
+.bank-box-hit {
+  position: absolute;
+  left: 12.2%;
+  width: 75.6%;
+  height: 7.3%;
+  background: transparent;
+  border-radius: 14px;
+  z-index: 5;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease;
+}
+
+.bank-box-hit:hover {
+  background: rgba(121, 12, 4, 0.03);
+}
+
+.btn-copy-rekening {
+  position: absolute;
+  right: 14.5%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 3px 9px;
+  background: #ffffff;
+  border: 1.2px solid #790c04;
+  border-radius: 999px;
+  color: #790c04;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(10px, 1.3vh, 11px);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(121, 12, 4, 0.15);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.btn-copy-seabank {
+  top: 58.4%;
+}
+
+.btn-copy-mandiri {
+  top: 68.2%;
+}
+
+.btn-copy-rekening:hover {
+  background: #fdf5f5;
+  border-color: #790c04;
+  transform: translateY(calc(-50% - 1px)) scale(1.04);
+  box-shadow: 0 4px 10px rgba(121, 12, 4, 0.22);
+}
+
+.btn-copy-rekening:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.btn-copy-rekening.copied {
+  background: #1b7a3e;
+  border-color: #1b7a3e;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(27, 122, 62, 0.35);
+}
+
+.btn-copy-rekening .copy-svg {
+  display: block;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.btn-copy-rekening:hover .copy-svg {
+  transform: scale(1.1);
+}
+
+/* Toast Notifikasi Feedback Salin */
+.copy-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  background: rgba(43, 11, 13, 0.94);
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 50px;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(12px, 3.2vw, 14px);
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 235, 185, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.copy-toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* =========================================================
+   GALLERY HIT AREAS & INTERACTIVE LIGHTBOX (HALAMAN 6)
+   ========================================================= */
+.gallery-hit {
+  position: absolute;
+  cursor: pointer;
+  z-index: 6;
+  border-radius: 8px;
+  background: transparent;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.gallery-hit:hover {
+  background: rgba(121, 12, 4, 0.08);
+}
+
+.gallery-hit-1 {
+  left: 11%;
+  top: 20%;
+  width: 41%;
+  height: 23%;
+  transform: rotate(-4.8deg);
+}
+
+.gallery-hit-2 {
+  left: 53%;
+  top: 27.5%;
+  width: 41%;
+  height: 23%;
+  transform: rotate(7.2deg);
+}
+
+.gallery-hit-3 {
+  left: 11%;
+  top: 51%;
+  width: 41%;
+  height: 23%;
+  transform: rotate(-1.2deg);
+}
+
+.gallery-hit-4 {
+  left: 53.5%;
+  top: 61%;
+  width: 39.5%;
+  height: 21.6%;
+  transform: rotate(5.3deg);
+}
+
+.photo-lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.photo-lightbox-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.photo-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.photo-lightbox-content {
+  position: relative;
+  z-index: 2;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightboxPop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes lightboxPop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.photo-lightbox-content img {
+  max-width: 90vw;
+  max-height: 85vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.photo-lightbox-close {
+  position: absolute;
+  top: -46px;
+  right: -6px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.photo-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: scale(1.1);
+}
+
+/* =========================================================
+   FOOTER (HALAMAN 8 - COMPACT & ELEGAN TANPA SCROLL)
+   ========================================================= */
+.footer-kirimdigi {
+  background: #790c04;
+  color: #fff;
+  text-align: center;
+  padding: 6px 18px 8px;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.footer-kirimdigi .footer-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  margin-bottom: 2px;
+  line-height: 1.25;
+}
+
+.footer-kirimdigi .footer-desc {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: .92;
+  line-height: 1.35;
+  margin: 0 auto 4px;
+  max-width: 96%;
+}
+
+.footer-kirimdigi .footer-social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-kirimdigi .footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.16);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  transition: all 0.25s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.footer-kirimdigi .footer-social a:hover {
+  background: rgba(255, 255, 255, 0.32);
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.footer-kirimdigi .footer-social a:active {
+  transform: translateY(0);
+}
+
+.footer-kirimdigi .footer-social svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN (MOBILE & TABLET)
+   ========================================================= */
+@media (max-width: 480px) {
+  .music-control {
+    bottom: 16px;
+    right: 14px;
+    width: 46px;
+    height: 46px;
+  }
+  .music-control.on-footer {
+    bottom: 78px;
+  }
+  .music-control span {
+    font-size: 19px;
+  }
+  .nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+  .nav-prev { left: 8px; }
+  .nav-next { right: 8px; }
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +8,16 @@
   <!-- Open Graph / WhatsApp / Facebook -->
   <meta property="og:title" content="Julian 💕 Nurlia">
   <meta property="og:description" content="Hadiri acara pernikahan kami pada Minggu, 08 November 2026 Ya!">
-  <!-- Gambar utama untuk preview - pakai JPG kompres 122KB agar LANGSUNG muncul di WhatsApp -->
-  <meta property="og:image" content="https://kirimdigi.github.io/Julian-Nurlia/Thumbnail.png">
-  <meta property="og:image:secure_url" content="https://kirimdigi.github.io/Julian-Nurlia/Thumbnail.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1672">
-  <meta property="og:image:height" content="940">
-  <meta property="og:image:alt" content="Akhirnya kami menikah - Jul + Lia = Love">
-  <!-- Fallback PNG asli -->
-  <meta property="og:image" content="https://kirimdigi.github.io/Julian-Nurlia/Cover.png">
+  <!-- Gambar utama preview WhatsApp (< 150KB, format JPEG 1200x630 agar LANGSUNG muncul seketika) -->
+  <meta property="og:image" content="https://kirimdigi.github.io/Julian-Nurlia/Thumbnail.jpg">
+  <meta property="og:image:secure_url" content="https://kirimdigi.github.io/Julian-Nurlia/Thumbnail.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pernikahan Julian & Nurlia">
+  <!-- Fallback image -->
+  <meta property="og:image" content="https://kirimdigi.github.io/Julian-Nurlia/Foto/6.jpg">
+  <link rel="image_src" href="https://kirimdigi.github.io/Julian-Nurlia/Thumbnail.jpg">
   <meta property="og:url" content="https://kirimdigi.github.io/Julian-Nurlia/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Julian & Nurlia Wedding">
@@ -25,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Julian 💕 Nurlia">
   <meta name="twitter:description" content="Hadiri acara pernikahan kami pada Minggu, 08 November 2026 Ya!">
-  <meta name="twitter:image" content="https://kirimdigi.github.io/Julian-Nurlia/Thumbnail.png">
+  <meta name="twitter:image" content="https://kirimdigi.github.io/Julian-Nurlia/Thumbnail.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -35,75 +35,138 @@
 </head>
 
 <body>
+  <div class="ambient-sparkles" id="ambientSparkles" aria-hidden="true"></div>
+  <div class="ambient-petals" id="ambientPetals" aria-hidden="true"></div>
 
   <audio id="bgMusic" loop preload="auto">
-    <source src="rizky-febian-feat-mahalini-bermuara-official-lyric-video-4_DTCxNXU0.mp3" type="audio/mpeg">
+    <source src="river-flows-in-you.mp3" type="audio/mpeg">
   </audio>
 
   <div class="music-control" id="musicControl" onclick="toggleMusic()" title="Musik">
     <span id="musicIcon">🎵</span>
   </div>
 
+  <div id="page-wrapper">
   <!-- 1 Cover -->
   <div class="page" id="page1">
-    <img src="Cover.png" alt="Cover - Julian & Nurlia" class="cover-image">
-    <button class="open-btn" onclick="openInvitation()">Buka Undangan </button>
-  </div>
-
-  <!-- 2 Orang Tua -->
-  <div class="page" id="page2">
-    <img src="OrangTua.png" alt="Orang Tua" class="content-image" loading="lazy">
-  </div>
-
-  <!-- 3 Akad & Resepsi -->
-  <div class="page" id="page3">
-    <img src="Akad-Resepsi.png" alt="Akad & Resepsi" class="content-image" loading="lazy">
-  </div>
-
-  <!-- 4 Kalender -->
-  <div class="page" id="page4">
-    <img src="Kalender.png" alt="Kalender" class="content-image" loading="lazy">
-    <!-- Hitungan mundur live — overlay di atas Kalender.png -->
-    <div class="countdown-overlay">
-      <div class="cd-box"><span class="num" id="cdDay">00</span><span class="label">Hari</span></div>
-      <div class="cd-box"><span class="num" id="cdHour">00</span><span class="label">Jam</span></div>
-      <div class="cd-box"><span class="num" id="cdMin">00</span><span class="label">Menit</span></div>
-      <div class="cd-box"><span class="num" id="cdSec">00</span><span class="label">Detik</span></div>
+    <div class="page-media">
+      <img src="Halaman/1.JPG" alt="Cover - Julian & Nurlia" class="cover-image">
+      <button class="open-btn" onclick="openInvitation()">Buka Undangan </button>
     </div>
   </div>
 
-  <!-- 5 Maps -->
+  <!-- 2 Sambutan -->
+  <div class="page" id="page2">
+    <div class="page-media">
+      <img src="Halaman/2.JPG" alt="Sambutan" class="content-image">
+    </div>
+  </div>
+
+  <!-- 3 Cerita Kami -->
+  <div class="page" id="page3">
+    <div class="page-media">
+      <img src="Halaman/3.JPG" alt="Cerita Kami" class="content-image">
+    </div>
+  </div>
+
+  <!-- 4 Mempelai -->
+  <div class="page" id="page4">
+    <div class="page-media">
+      <img src="Halaman/4.JPG" alt="Mempelai" class="content-image">
+    </div>
+  </div>
+
+  <!-- 5 Detail Acara + Maps -->
   <div class="page" id="page5">
-    <img src="Maps.png" alt="Maps" class="content-image" loading="lazy">
-    <!-- Hit-area transparan PAS di atas tombol 'Lihat di Google Maps' yang sudah ada di dalam gambar -->
-    <a href="https://maps.app.goo.gl/HFKSckPvM16sx6uC8" target="_blank" rel="noopener noreferrer" class="maps-hit"
-      aria-label="Lihat di Google Maps"></a>
+    <div class="page-media">
+      <img src="Halaman/5.JPG" alt="Detail Acara" class="content-image">
+      <!-- Hit-area transparan PAS di atas tombol 'Lihat di Google Maps' yang sudah ada di dalam gambar -->
+      <a href="https://maps.app.goo.gl/HFKSckPvM16sx6uC8" target="_blank" rel="noopener noreferrer" class="maps-hit"
+        aria-label="Lihat di Google Maps"></a>
+    </div>
   </div>
 
   <!-- 6 Galeri -->
   <div class="page" id="page6">
-    <img src="Galeri.png" alt="Galeri" class="content-image" loading="lazy">
+    <div class="page-media">
+      <img src="Halaman/6.JPG" alt="Galeri" class="content-image">
+      <!-- Hit areas interaktif: klik foto untuk melihat resolusi penuh -->
+      <div class="gallery-hit gallery-hit-1" onclick="openPhotoLightbox('Foto/4.jpg')" title="Klik untuk perbesar foto 4" aria-label="Perbesar foto 4"></div>
+      <div class="gallery-hit gallery-hit-2" onclick="openPhotoLightbox('Foto/1.jpg')" title="Klik untuk perbesar foto 1" aria-label="Perbesar foto 1"></div>
+      <div class="gallery-hit gallery-hit-3" onclick="openPhotoLightbox('Foto/5.jpg')" title="Klik untuk perbesar foto 5" aria-label="Perbesar foto 5"></div>
+      <div class="gallery-hit gallery-hit-4" onclick="openPhotoLightbox('Foto/2.jpg')" title="Klik untuk perbesar foto 2" aria-label="Perbesar foto 2"></div>
+    </div>
   </div>
 
-  <!-- 7 Love Story -->
+  <!-- 7 RSVP & Transfer Cashless -->
   <div class="page" id="page7">
-    <img src="Love-Story.png" alt="Love Story" class="content-image" loading="lazy">
+    <div class="page-media">
+      <img src="Halaman/7.JPG" alt="RSVP & Transfer Cashless" class="content-image">
+      <!-- Form Interaktif RSVP & Ucapan ke Spreadsheet -->
+      <form class="rsvp-form" id="rsvpForm" onsubmit="submitRsvp(event)">
+        <!-- Input Nama -->
+        <input type="text" id="rsvpNama" class="rsvp-input rsvp-input-nama" placeholder="Nama" required autocomplete="name">
+
+        <!-- Input Ucapan -->
+        <textarea id="rsvpUcapan" class="rsvp-input rsvp-input-ucapan" placeholder="Ucapan" rows="2" required></textarea>
+
+        <!-- Dropdown Konfirmasi Kehadiran -->
+        <select id="rsvpKehadiran" class="rsvp-input rsvp-select-kehadiran" required>
+          <option value="" disabled selected hidden>Konfirmasi Kehadiran</option>
+          <option value="Hadir">Hadir</option>
+          <option value="Tidak Hadir">Tidak Hadir</option>
+        </select>
+
+        <!-- Tombol Kirim -->
+        <button type="submit" id="btnRsvpKirim" class="rsvp-btn rsvp-btn-kirim" aria-label="Kirim RSVP">
+          <span class="btn-text">Kirim</span>
+        </button>
+
+        <!-- Tombol Tampilkan Ucapan -->
+        <button type="button" id="btnRsvpLihat" class="rsvp-btn rsvp-btn-lihat" onclick="openUcapanModal()" aria-label="Tampilkan Ucapan">
+          <span class="btn-text">Tampilkan Ucapan</span>
+        </button>
+      </form>
+
+      <!-- Tombol Salin Rekening SeaBank (Badge di border atas kanan, bebas dari benturan teks) -->
+      <div class="bank-box-hit" onclick="copyRekening('901706407987', document.querySelector('.btn-copy-seabank'))"
+        style="top: 58.4%;" title="Klik untuk salin nomor rekening SeaBank" aria-hidden="true"></div>
+      <button type="button" class="btn-copy-rekening btn-copy-seabank" onclick="copyRekening('901706407987', this)" aria-label="Salin nomor rekening SeaBank 901706407987">
+        <svg class="copy-svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span class="btn-copy-text">Salin</span>
+      </button>
+
+      <!-- Tombol Salin Rekening Mandiri (Badge di border atas kanan, bebas dari benturan teks) -->
+      <div class="bank-box-hit" onclick="copyRekening('1300022926870', document.querySelector('.btn-copy-mandiri'))"
+        style="top: 68.2%;" title="Klik untuk salin nomor rekening Mandiri" aria-hidden="true"></div>
+      <button type="button" class="btn-copy-rekening btn-copy-mandiri" onclick="copyRekening('1300022926870', this)" aria-label="Salin nomor rekening Mandiri 1300022926870">
+        <svg class="copy-svg" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <span class="btn-copy-text">Salin</span>
+      </button>
+    </div>
   </div>
 
-  <!-- 8 RSVP -->
+  <!-- 8 Thanks -->
   <div class="page" id="page8">
-    <img src="Rsvp.png" alt="Rsvp" class="content-image" loading="lazy">
-    <!-- Tombol RSVP via WhatsApp — mengarah ke 081380989932 -->
-    <a href="https://wa.me/6281380989932?text=Halo%20kak%2C%20saya%20ingin%20konfirmasi%20kehadiran%20untuk%20pernikahan%20Julian%20%26%20Nurlia"
-      target="_blank" rel="noopener noreferrer" class="rsvp-hit" aria-label="RSVP via WhatsApp - 081380989932"></a>
-  </div>
-
-  <!-- 9 Thanks -->
-  <div class="page" id="page9">
-    <img src="Thanks.png" alt="Thanks" class="content-image" loading="lazy">
+    <div class="page-media">
+      <img src="Halaman/8.JPG" alt="Terima Kasih" class="content-image">
+      <!-- Hitungan mundur live — overlay di atas angka statis di 8.JPG -->
+      <div class="countdown-overlay">
+        <div class="cd-box"><span class="num" id="cdDay">00</span><span class="label">Hari</span></div>
+        <div class="cd-box"><span class="num" id="cdHour">00</span><span class="label">Jam</span></div>
+        <div class="cd-box"><span class="num" id="cdMin">00</span><span class="label">Menit</span></div>
+        <div class="cd-box"><span class="num" id="cdSec">00</span><span class="label">Detik</span></div>
+      </div>
+    </div>
     <footer class="footer-kirimdigi">
       <p class="footer-title">Hubungi Kami Untuk :</p>
-      <p class="footer-desc">Aplikasi, CS AI/Chat Bot, Undangan Digital &amp; Website</p>
+      <p class="footer-desc">Aplikasi, CS AI/Chat Bot, Undangan Digital & Website</p>
       <div class="footer-social">
         <a href="https://instagram.com/kirimdigi" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
          >
@@ -129,8 +192,45 @@
       </div>
     </footer>
   </div>
+  </div>
+
+  <button class="nav-btn nav-prev" onclick="prevPage()" aria-label="Halaman sebelumnya">&#8249;</button>
+  <button class="nav-btn nav-next" onclick="nextPage()" aria-label="Halaman selanjutnya">&#8250;</button>
+
+  <!-- Toast Notifikasi (Salin Rekening / RSVP) -->
+  <div class="copy-toast" id="copyToast" role="alert" aria-live="assertive"></div>
+
+  <!-- Modal Tampilkan Ucapan & Doa -->
+  <div class="ucapan-modal-overlay" id="ucapanModalOverlay" onclick="closeUcapanModal(event)" aria-hidden="true">
+    <div class="ucapan-modal-content" onclick="event.stopPropagation()">
+      <div class="ucapan-modal-header">
+        <div class="ucapan-modal-title">
+          <span class="icon">💌</span>
+          <h3>Ucapan & Doa Mempelai</h3>
+        </div>
+        <button type="button" class="btn-close-modal" onclick="closeUcapanModal()" aria-label="Tutup">&times;</button>
+      </div>
+
+      <!-- Rekap Jumlah Hadir & Tidak Hadir -->
+      <div class="ucapan-stats-bar" id="ucapanStatsBar">
+        <div class="stat-pill stat-hadir">
+          <span class="stat-icon">✓</span>
+          <span class="stat-label">Hadir:</span>
+          <span class="stat-count" id="statCountHadir">0</span>
+        </div>
+        <div class="stat-pill stat-tidak-hadir">
+          <span class="stat-icon">✕</span>
+          <span class="stat-label">Tidak Hadir:</span>
+          <span class="stat-count" id="statCountTidakHadir">0</span>
+        </div>
+      </div>
+
+      <div class="ucapan-list-container" id="ucapanListContainer">
+        <!-- List ucapan dimuat di sini -->
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
-
 </html>
