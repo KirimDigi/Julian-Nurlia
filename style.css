@@ -11,12 +11,8 @@ html, body {
   overflow: hidden;
   height: 100%;
   width: 100%;
-  /* Latar belakang romantis hangat dengan nuansa champagne, blush, dan gold */
-  background: 
-    radial-gradient(circle at 12% 18%, rgba(245, 212, 150, 0.45) 0%, transparent 42%),
-    radial-gradient(circle at 88% 82%, rgba(180, 40, 30, 0.16) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, #fdf9f4 0%, #f7ebe0 55%, #edd8c6 100%);
-  background-attachment: fixed;
+  /* Latar belakang putih bersih agar menyatu sempurna dengan seluruh halaman undangan di HP */
+  background: #ffffff;
   font-family: 'Poppins', sans-serif;
   touch-action: none;
   -webkit-font-smoothing: antialiased;
@@ -103,8 +99,9 @@ html, body {
 #page-wrapper {
   display: flex;
   width: 800%;
-  height: 100vh;
-  background: transparent;
+  height: 100%;
+  height: 100dvh;
+  background: #ffffff;
   /* Transisi slide ke samping ultra-smooth dengan kurva spring alami */
   transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
   touch-action: none;
@@ -116,10 +113,11 @@ html, body {
    ========================================================= */
 .page {
   width: 12.5%;
-  height: 100vh;
+  height: 100%;
+  height: 100dvh;
   position: relative;
   overflow: hidden;
-  background: transparent;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,24 +125,26 @@ html, body {
 }
 
 #page1 {
-  background: transparent;
+  background: #ffffff;
 }
 
 #page8 {
   flex-direction: column;
   overflow: hidden; /* Tanpa scroll vertikal, pas 1 layar */
-  background: transparent;
+  background: #ffffff;
   justify-content: space-between;
   align-items: center;
-  height: 100vh;
+  height: 100%;
+  height: 100dvh;
 }
 
 #page8 .page-media {
-  flex: 1;
+  flex: 0 1 auto;
   min-height: 0;
   display: inline-block;
   line-height: 0;
-  max-height: calc(100vh - 66px);
+  margin: auto auto 0;
+  position: relative;
 }
 
 /* =========================================================
@@ -185,6 +185,7 @@ img {
 .content-image {
   max-width: 100%;
   max-height: 100vh;
+  max-height: 100dvh;
   width: auto;
   height: auto;
   display: block;
@@ -194,9 +195,10 @@ img {
 
 #page8 .content-image {
   max-height: calc(100vh - 66px);
+  max-height: calc(100dvh - 66px);
 }
 
-@media (max-width: 520px) {
+@media (max-width: 768px) {
   #page8 {
     background: #ffffff;
     overflow: hidden;
@@ -211,17 +213,21 @@ img {
 
   #page8 .page-media {
     max-height: calc(100vh - 64px);
+    max-height: calc(100dvh - 64px);
     background: #ffffff;
+    flex: 0 1 auto;
+    margin: auto auto 0;
   }
 
   #page8 .content-image {
     max-height: calc(100vh - 64px);
+    max-height: calc(100dvh - 64px);
     width: auto;
     height: auto;
   }
 }
 
-@media (min-width: 521px) {
+@media (min-width: 769px) {
   #page8 .page-media {
     border-radius: 18px 18px 0 0;
     max-width: 480px;
@@ -411,8 +417,8 @@ img {
    COUNTDOWN OVERLAY (HALAMAN 8)
    ========================================================= */
 :root {
-  --cd-top: 80.1%;
-  --cd-width: 80%;
+  --cd-top: 79.4%;
+  --cd-width: 83.2%;
 }
 
 .countdown-overlay {
@@ -420,41 +426,42 @@ img {
   left: 50%;
   transform: translateX(-50%);
   width: var(--cd-width);
-  height: 8%;
+  height: 7.2%;
   top: var(--cd-top);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  column-gap: 3.5%;
   z-index: 5;
+  pointer-events: none;
 }
 
 .cd-box {
-  background: #fff;
+  background: transparent;
   border: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  border-radius: 0;
   box-sizing: border-box;
-  transition: transform 0.3s ease;
 }
 
 .cd-box .num {
-  font-size: clamp(18px, 5vw, 24px);
-  font-weight: 900;
+  font-size: clamp(15px, 4.3vw, 24px);
+  font-weight: 800;
   color: #9e0f0f;
-  line-height: 1;
+  line-height: 1.05;
   letter-spacing: -0.5px;
   font-family: 'Poppins', sans-serif;
-  transition: transform 0.2s ease;
 }
 
 .cd-box .label {
-  font-size: clamp(10px, 2.7vw, 12px);
+  font-size: clamp(8px, 2.3vw, 12px);
   font-weight: 700;
-  color: #222;
+  color: #333333;
   margin-top: 2px;
+  line-height: 1;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* =========================================================
@@ -1049,7 +1056,7 @@ img {
   background: #790c04;
   color: #fff;
   text-align: center;
-  padding: 6px 18px 8px;
+  padding: 5px 14px max(6px, env(safe-area-inset-bottom));
   font-family: 'Poppins', sans-serif;
   width: 100%;
   flex-shrink: 0;
