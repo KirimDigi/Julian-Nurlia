@@ -40,7 +40,7 @@
   <div class="ambient-petals" id="ambientPetals" aria-hidden="true"></div>
 
   <audio id="bgMusic" loop preload="auto">
-    <source src="river-flows-in-you.mp3" type="audio/mpeg">
+    <source src="rizky-febian-feat-mahalini-bermuara-official-lyric-video_vXgkXk5n.mp3" type="audio/mpeg">
   </audio>
 
   <div class="music-control" id="musicControl" onclick="toggleMusic()" title="Musik">
@@ -49,7 +49,7 @@
 
   <div id="page-wrapper">
     <!-- 1 Cover -->
-    <div class="page" id="page1">
+    <div class="page active" id="page1">
       <div class="page-media">
         <img src="Halaman/1.JPG" alt="Cover - Julian & Nurlia" class="cover-image">
         <button class="open-btn" onclick="openInvitation()">Buka Undangan </button>
@@ -57,38 +57,38 @@
     </div>
 
     <!-- 2 Sambutan -->
-    <div class="page" id="page2">
+    <div class="page page-next" id="page2">
       <div class="page-media">
         <img src="Halaman/2.JPG" alt="Sambutan" class="content-image">
       </div>
     </div>
 
-    <!-- 3 Cerita Kami -->
-    <div class="page" id="page3">
+    <!-- 3 Kami yang Menikah -->
+    <div class="page page-hidden" id="page3">
+      <div class="page-media">
+        <img src="Halaman/4.JPG" alt="Kami yang Menikah" class="content-image">
+      </div>
+    </div>
+
+    <!-- 4 Cerita Kami -->
+    <div class="page page-hidden" id="page4">
       <div class="page-media">
         <img src="Halaman/3.JPG" alt="Cerita Kami" class="content-image">
       </div>
     </div>
 
-    <!-- 4 Mempelai -->
-    <div class="page" id="page4">
-      <div class="page-media">
-        <img src="Halaman/4.JPG" alt="Mempelai" class="content-image">
-      </div>
-    </div>
-
     <!-- 5 Detail Acara + Maps -->
-    <div class="page" id="page5">
+    <div class="page page-hidden" id="page5">
       <div class="page-media">
         <img src="Halaman/5.JPG" alt="Detail Acara" class="content-image">
         <!-- Hit-area transparan PAS di atas tombol 'Lihat di Google Maps' yang sudah ada di dalam gambar -->
-        <a href="https://maps.app.goo.gl/HFKSckPvM16sx6uC8" target="_blank" rel="noopener noreferrer" class="maps-hit"
+        <a href="https://maps.app.goo.gl/CHao3oKAw6AXfc8W7?g_st=ic" target="_blank" rel="noopener noreferrer" class="maps-hit"
           aria-label="Lihat di Google Maps"></a>
       </div>
     </div>
 
     <!-- 6 Galeri -->
-    <div class="page" id="page6">
+    <div class="page page-hidden" id="page6">
       <div class="page-media">
         <img src="Halaman/6.JPG" alt="Galeri" class="content-image">
         <!-- Hit areas interaktif: klik foto untuk melihat resolusi penuh -->
@@ -104,7 +104,7 @@
     </div>
 
     <!-- 7 RSVP & Transfer Cashless -->
-    <div class="page" id="page7">
+    <div class="page page-hidden" id="page7">
       <div class="page-media">
         <img src="Halaman/7.JPG" alt="RSVP & Transfer Cashless" class="content-image">
         <!-- Form Interaktif RSVP & Ucapan ke Spreadsheet -->
@@ -165,7 +165,7 @@
     </div>
 
     <!-- 8 Thanks -->
-    <div class="page" id="page8">
+    <div class="page page-hidden" id="page8">
       <div class="page-media">
         <img src="Halaman/8.JPG" alt="Terima Kasih" class="content-image">
         <!-- Hitungan mundur live — overlay di atas angka statis di 8.JPG -->
@@ -202,6 +202,18 @@
       </footer>
     </div>
   </div>
+
+  <!-- Indikator Dots Halaman (Transisi Dinamis & Interaktif) -->
+  <nav class="page-dots-indicator" id="pageDotsIndicator" aria-label="Indikator Halaman">
+    <button type="button" class="dot-btn active" onclick="goToPage(0)" aria-label="Halaman 1 (Cover)"></button>
+    <button type="button" class="dot-btn" onclick="goToPage(1)" aria-label="Halaman 2 (Sambutan)"></button>
+    <button type="button" class="dot-btn" onclick="goToPage(2)" aria-label="Halaman 3 (Kami yang Menikah)"></button>
+    <button type="button" class="dot-btn" onclick="goToPage(3)" aria-label="Halaman 4 (Cerita Kami)"></button>
+    <button type="button" class="dot-btn" onclick="goToPage(4)" aria-label="Halaman 5 (Detail Acara & Maps)"></button>
+    <button type="button" class="dot-btn" onclick="goToPage(5)" aria-label="Halaman 6 (Galeri Foto)"></button>
+    <button type="button" class="dot-btn" onclick="goToPage(6)" aria-label="Halaman 7 (RSVP & Transfer)"></button>
+    <button type="button" class="dot-btn" onclick="goToPage(7)" aria-label="Halaman 8 (Terima Kasih)"></button>
+  </nav>
 
   <button class="nav-btn nav-prev" onclick="prevPage()" aria-label="Halaman sebelumnya">&#8249;</button>
   <button class="nav-btn nav-next" onclick="nextPage()" aria-label="Halaman selanjutnya">&#8250;</button>

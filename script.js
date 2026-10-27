@@ -5,29 +5,94 @@ const TOTAL_PAGES = 8;
 let currentPage = 0;
 let isAnimating = false;
 
-// Navigasi perpindahan halaman horizontal dengan efek transisi & animasi aktif
+let flipTimeout = null;
+
+// Navigasi perpindahan halaman dengan efek 3D Page Flip dua arah (ke kiri saat maju, ke kanan saat mundur)
 function goToPage(index) {
   // Jika undangan belum dibuka, jangan izinkan pindah dari cover
   if (!isOpened && index > 0) {
     return;
   }
 
-  currentPage = Math.max(0, Math.min(TOTAL_PAGES - 1, index));
-  const wrapper = document.getElementById('page-wrapper');
-  if (wrapper) {
-    // Geser strictly ke samping (horizontal slide)
-    wrapper.style.transform = `translateX(-${currentPage * 12.5}%)`;
+  const prevIdx = currentPage;
+  const targetIdx = Math.max(0, Math.min(TOTAL_PAGES - 1, index));
+  if (prevIdx === targetIdx && isOpened) {
+    return;
   }
 
-  // Beri kelas active pada halaman yang sedang tampil untuk memicu animasi masuk
+  const isForward = targetIdx >= prevIdx;
+  currentPage = targetIdx;
+
+  const wrapper = document.getElementById('page-wrapper');
+  if (wrapper) {
+    wrapper.style.transform = '';
+  }
+
   const pages = document.querySelectorAll('.page');
+  const prevPageEl = pages[prevIdx];
+  const activePageEl = pages[currentPage];
+
+  if (flipTimeout) {
+    clearTimeout(flipTimeout);
+  }
+
+  // Jika berpindah halaman (bukan inisialisasi awal)
+  if (prevIdx !== currentPage && prevPageEl) {
+    if (isForward) {
+      // Membalik ke KIRI saat maju (next / swipe kiri)
+      prevPageEl.className = 'page flip-out-left';
+    } else {
+      // Membalik ke KANAN saat mundur (prev / swipe kanan)
+      prevPageEl.className = 'page flip-out-right';
+    }
+  }
+
+  if (activePageEl) {
+    activePageEl.className = 'page active';
+  }
+
+  // Atur halaman lainnya di sekitarnya
   pages.forEach((page, idx) => {
     if (idx === currentPage) {
-      page.classList.add('active');
+      page.className = 'page active';
+    } else if (idx === prevIdx && prevIdx !== currentPage) {
+      // Biarkan kelas animasi flip-out berjalan
+    } else if (idx < currentPage) {
+      page.className = 'page page-past-left';
+    } else if (idx === currentPage + 1) {
+      page.className = 'page page-next';
     } else {
-      page.classList.remove('active');
+      page.className = 'page page-hidden';
     }
   });
+
+  // Setelah animasi membalik selesai (850ms), rapikan status kelas halaman
+  flipTimeout = setTimeout(() => {
+    pages.forEach((page, idx) => {
+      if (idx === currentPage) {
+        page.className = 'page active';
+      } else if (idx < currentPage) {
+        page.className = 'page page-past-left';
+      } else if (idx === currentPage + 1) {
+        page.className = 'page page-next';
+      } else {
+        page.className = 'page page-hidden';
+      }
+    });
+  }, 850);
+
+  // Perbarui indikator dots halaman
+  const dots = document.querySelectorAll('.page-dots-indicator .dot-btn');
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === currentPage);
+  });
+
+  const dotsContainer = document.getElementById('pageDotsIndicator');
+  if (dotsContainer) {
+    // Sembunyikan dots saat di Cover (page 0) agar gambar cover 100% bersih
+    dotsContainer.classList.toggle('visible', isOpened && currentPage > 0);
+    dotsContainer.classList.toggle('on-footer', currentPage === TOTAL_PAGES - 1);
+  }
 
   // Perbarui visibilitas tombol panah navigasi
   const prev = document.querySelector('.nav-prev');
@@ -50,6 +115,11 @@ function goToPage(index) {
   const musicBtn = document.getElementById('musicControl');
   if (musicBtn) {
     musicBtn.classList.toggle('on-footer', currentPage === TOTAL_PAGES - 1);
+  }
+
+  // Embusan bunga hidup saat pergantian halaman
+  if (isOpened && prevIdx !== currentPage) {
+    triggerPageTransitionFlutter();
   }
 }
 
@@ -190,6 +260,29 @@ function initPetals() {
     p.style.animationDelay = `${Math.random() * 7}s`;
     p.style.opacity = (Math.random() * 0.45 + 0.45).toFixed(2);
     container.appendChild(p);
+  }
+}
+
+// Efek hembusan kelopak bunga mawar romantis saat berpindah halaman
+function triggerPageTransitionFlutter() {
+  const container = document.getElementById('ambientPetals');
+  if (!container) return;
+
+  for (let i = 0; i < 6; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal page-flutter-petal';
+    const w = Math.random() * 8 + 11;
+    p.style.width = `${w}px`;
+    p.style.height = `${w * 1.35}px`;
+    p.style.left = `${Math.random() * 85 + 7}%`;
+    p.style.animationDuration = `${(Math.random() * 2 + 4.2).toFixed(1)}s`;
+    p.style.animationDelay = `${(i * 0.08).toFixed(2)}s`;
+    p.style.opacity = '0.9';
+    container.appendChild(p);
+
+    setTimeout(() => {
+      p.remove();
+    }, 6500);
   }
 }
 

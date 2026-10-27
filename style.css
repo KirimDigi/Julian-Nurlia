@@ -94,34 +94,125 @@ html, body {
 }
 
 /* =========================================================
-   HORIZONTAL SLIDE WRAPPER & TRANSITIONS
+   3D BOOK / ALBUM CONTAINER & 3D STAGE
    ========================================================= */
 #page-wrapper {
-  display: flex;
-  width: 800%;
-  height: 100%;
-  height: 100dvh;
-  background: #ffffff;
-  /* Transisi slide ke samping ultra-smooth dengan kurva spring alami */
-  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-  touch-action: none;
-  will-change: transform;
-}
-
-/* =========================================================
-   PAGE CONTAINER
-   ========================================================= */
-.page {
-  width: 12.5%;
-  height: 100%;
-  height: 100dvh;
   position: relative;
+  width: 100vw;
+  max-width: 100%;
+  height: 100%;
+  height: 100dvh;
   overflow: hidden;
-  background: #ffffff;
+  perspective: 2200px;
+  perspective-origin: 50% 50%;
+  background: #fdfaf7;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.5s ease;
+  touch-action: none;
+}
+
+/* =========================================================
+   3D PAGE FLIP (DUA ARAH: KE KIRI SAAT MAJU, KE KANAN SAAT MUNDUR)
+   ========================================================= */
+.page {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.35, 1),
+              opacity 0.65s cubic-bezier(0.5, 0, 1, 1) 0.15s,
+              visibility 0.85s,
+              box-shadow 0.85s ease;
+  will-change: transform, opacity;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 1;
+}
+
+/* 1. Halaman Aktif (Tampil di depan, bersih tanpa bayangan kiri) */
+.page.active {
+  transform: rotateY(0deg) scale(1);
+  transform-origin: center center;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 20;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.35, 1),
+              opacity 0.6s ease;
+}
+
+/* 2. Animasi Membalik ke KIRI (Saat Maju / Tombol > / Swipe Kiri) */
+.page.flip-out-left {
+  transform-origin: left center;
+  transform: rotateY(-160deg) scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 25;
+  box-shadow: none;
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.35, 1),
+              opacity 0.65s cubic-bezier(0.5, 0, 1, 1) 0.15s,
+              visibility 0.85s;
+}
+
+/* 3. Animasi Membalik ke KANAN (Saat Mundur / Tombol < / Swipe Kanan) */
+.page.flip-out-right {
+  transform-origin: right center;
+  transform: rotateY(160deg) scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 25;
+  box-shadow: none;
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.35, 1),
+              opacity 0.65s cubic-bezier(0.5, 0, 1, 1) 0.15s,
+              visibility 0.85s;
+}
+
+/* 4. Halaman yang sudah dibuka ke kiri */
+.page.page-past,
+.page.page-past-left {
+  transform-origin: left center;
+  transform: rotateY(-160deg) scale(0.95);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 5. Halaman Berikutnya (Siap di bawah tumpukan untuk menyambut flip) */
+.page.page-next {
+  transform-origin: center center;
+  transform: rotateY(0deg) scale(0.97);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: none;
+  z-index: 15;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  transition: transform 0.85s cubic-bezier(0.25, 1, 0.35, 1),
+              opacity 0.75s ease,
+              visibility 0.85s;
+}
+
+/* 6. Halaman yang masih jauh di tumpukan */
+.page.page-hidden {
+  transform: rotateY(0deg) scale(0.93);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
 }
 
 #page1 {
@@ -148,7 +239,7 @@ html, body {
 }
 
 /* =========================================================
-   PAGE MEDIA & CONTENT ENTRANCE ANIMATION
+   PAGE MEDIA & LIVING REVEAL TRANSITION
    ========================================================= */
 img {
   -webkit-user-drag: none;
@@ -166,19 +257,79 @@ img {
   box-shadow: 0 20px 60px -10px rgba(121, 12, 4, 0.25), 
               0 6px 20px rgba(0, 0, 0, 0.08),
               0 0 0 1px rgba(121, 12, 4, 0.08);
-  /* Transisi dinamis & hidup saat masuk halaman (depth & scale effect) */
-  transform: scale(0.95) translateY(8px);
-  opacity: 0.75;
-  filter: blur(0.5px);
-  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.65s ease,
-              filter 0.65s ease;
+  overflow: hidden;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Kemilau cahaya halus (shimmer sweep) saat halaman aktif terbuka */
+.page-media::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.32) 50%,
+    rgba(255, 240, 225, 0.18) 70%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Animasi cinematic entrance saat halaman menjadi aktif */
 .page.active .page-media {
-  transform: scale(1) translateY(0);
-  opacity: 1;
-  filter: blur(0);
+  animation: pageLivelyReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.page.active .page-media::after {
+  animation: shimmerSweep 1.25s cubic-bezier(0.22, 1, 0.36, 1) 0.18s 1 forwards;
+}
+
+@keyframes pageLivelyReveal {
+  0% {
+    opacity: 0.3;
+    transform: translateY(22px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    left: -130%;
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    left: 230%;
+    opacity: 0;
+  }
+}
+
+/* Animasi hidup & bernapas lembut (subtle breathe) agar halaman tidak kaku/monoton */
+.page.active .content-image {
+  animation: livingBreathe 7.5s ease-in-out infinite alternate;
+}
+
+@keyframes livingBreathe {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-3.5px) scale(1.0035);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
 .cover-image,
@@ -260,9 +411,25 @@ img {
   z-index: 10;
   -webkit-tap-highlight-color: transparent;
   color: transparent;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: none;
   transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease;
+}
+
+.open-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  animation: pulseOpenAura 2.2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes pulseOpenAura {
+  0% { transform: scale(0.97); opacity: 0.85; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.75); }
+  70% { transform: scale(1.05); opacity: 0; box-shadow: 0 0 16px 8px rgba(255, 255, 255, 0); }
+  100% { transform: scale(1.05); opacity: 0; }
 }
 
 .open-btn:hover {
@@ -414,6 +581,87 @@ img {
 }
 
 /* =========================================================
+   PAGE DOTS INDICATOR (MINIMALIS TRANSPARAN TANPA KOTAK PUTIH)
+   ========================================================= */
+.page-dots-indicator {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 6px;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  z-index: 900;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), bottom 0.3s ease;
+}
+
+.page-dots-indicator.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.page-dots-indicator.on-footer {
+  bottom: 64px;
+}
+
+.dot-btn {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(154, 28, 39, 0.28);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.2s ease;
+}
+
+.dot-btn:hover {
+  background: rgba(154, 28, 39, 0.65);
+  transform: scale(1.3);
+}
+
+.dot-btn.active {
+  width: 15px;
+  background: #9a1c27;
+  box-shadow: 0 1px 3px rgba(154, 28, 39, 0.35);
+}
+
+/* Embusan bunga saat pindah halaman */
+.petal.page-flutter-petal {
+  animation: flutterFall 5.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+@keyframes flutterFall {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+    transform: translateY(10vh) translateX(15px) rotate(45deg) scale(1);
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(105vh) translateX(60px) rotate(320deg) scale(0.85);
+    opacity: 0;
+  }
+}
+
+/* =========================================================
    COUNTDOWN OVERLAY (HALAMAN 8)
    ========================================================= */
 :root {
@@ -444,6 +692,26 @@ img {
   justify-content: center;
   height: 100%;
   box-sizing: border-box;
+}
+
+/* Animasi pop bertahap untuk countdown saat masuk ke halaman 8 */
+.page.active .cd-box {
+  animation: countBoxEntrance 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.page.active .cd-box:nth-child(1) { animation-delay: 0.15s; }
+.page.active .cd-box:nth-child(2) { animation-delay: 0.23s; }
+.page.active .cd-box:nth-child(3) { animation-delay: 0.31s; }
+.page.active .cd-box:nth-child(4) { animation-delay: 0.39s; }
+
+@keyframes countBoxEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .cd-box .num {
@@ -482,6 +750,23 @@ img {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.25s ease, box-shadow 0.25s ease;
+  overflow: visible;
+}
+
+.maps-hit::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 28px;
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  animation: pulseMapsBtn 2.4s infinite ease-in-out 0.4s;
+  pointer-events: none;
+}
+
+@keyframes pulseMapsBtn {
+  0% { transform: scale(0.98); opacity: 0.85; box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.75); }
+  70% { transform: scale(1.03); opacity: 0; box-shadow: 0 0 16px 8px rgba(255, 255, 255, 0); }
+  100% { transform: scale(1.03); opacity: 0; }
 }
 
 .maps-hit:focus { outline: none; }
@@ -603,6 +888,37 @@ img {
   top: 38.44%;
   width: 31.0%;
   height: 2.7%;
+}
+
+/* Animasi berjenjang (staggered cascade) pada form RSVP saat masuk Halaman 7 */
+.page.active .rsvp-input-nama {
+  animation: formFieldReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+.page.active .rsvp-input-ucapan {
+  animation: formFieldReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.23s both;
+}
+.page.active .rsvp-select-kehadiran {
+  animation: formFieldReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.31s both;
+}
+.page.active .rsvp-btn-kirim {
+  animation: formFieldReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.39s both;
+}
+.page.active .rsvp-btn-lihat {
+  animation: formFieldReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}
+.page.active .btn-copy-rekening {
+  animation: formFieldReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.52s both;
+}
+
+@keyframes formFieldReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================================================
